@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+import { AudioPlayerComponent } from './audio-player/audio-player.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-audioplayer',
+  template: ``,
 })
 export class AppComponent {
-  title = 'app';
+  constructor(private injector: Injector) {
+    const AudioPlayerElement = createCustomElement(AudioPlayerComponent, {
+      injector: this.injector,
+    });
+    customElements.define('app-audioplayer', AudioPlayerElement);
+  }
 }
