@@ -1,9 +1,13 @@
 <div>
+  {{ files }}
   <div id="audio_button">
     <span (click)="handleStopButton()">
       停止
     </span>
-    <span (click)="handlePlayButton()">
+    <span (click)="handlePauseButton()" *ngIf="isPlaying">
+      一時停止
+    </span>
+    <span (click)="handlePlayButton()" *ngIf="!isPlaying">
       再生
     </span>
   </div>
