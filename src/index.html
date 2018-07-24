@@ -10,13 +10,16 @@
 </head>
 
 <body>
-  <app-audioplayer class="audio" files='["https://mae.chab.in/wp-content/uploads/music/mm48.mp3"]'></app-audioplayer>
+  <app-audioplayer class="audio" files='[
+    {"audio": "https://mae.chab.in/wp-content/uploads/music/mm48.mp3"},
+    {"audio": "b"}
+  ]'></app-audioplayer>
   <script>
-    // var a = ['a'];
+    // var a = [{ 'c': 'd' }];
     // const audio = document.querySelector('.audio');
     // setInterval(() => {
     //   audio.setAttribute('files', a);
-    //   a.push('a');
+    //   a.push({ 'c': 'd' });
     // }, 5000);
   </script>
 </body>

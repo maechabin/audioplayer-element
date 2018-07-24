@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-
+import { Subject, Observable } from 'rxjs';
+import { AudioFile } from './audio-player.model';
 @Injectable({
   providedIn: 'root',
 })
 export class AudioPlayerService {
   audio = new Audio();
+  currentIndex = 0;
 
-  private _audioFiles: string[] = [];
+  private _audioFiles: AudioFile[] = [];
 
-  set audioFiles(files: string[]) {
+  set audioFiles(files: AudioFile[]) {
     this._audioFiles = files;
   }
-  get audioFiles(): string[] {
+  get audioFiles(): AudioFile[] {
     return this._audioFiles;
   }
 
@@ -20,10 +22,10 @@ export class AudioPlayerService {
   }
 
   constructor() {
-    this.audio.src = 'https://mae.chab.in/wp-content/uploads/music/mm48.mp3';
+    //
   }
 
-  addAudio(files: string[]) {
+  addAudio(files: AudioFile[]) {
     const audioFiles = this.audioFiles;
     return audioFiles.concat(files);
   }
@@ -33,6 +35,7 @@ export class AudioPlayerService {
   }
 
   play() {
+    this.audio.src = this.audioFiles[this.currentIndex].audio;
     this.audio.play();
   }
 

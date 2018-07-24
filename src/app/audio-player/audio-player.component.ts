@@ -1,6 +1,6 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Component, OnInit, OnChanges, SimpleChanges, SimpleChange, Input, Output, EventEmitter } from '@angular/core';
 import { AudioPlayerService } from './audio-player.service';
+import { AudioFile } from './audio-player.model';
 
 @Component({
   selector: 'app-audioplayer',
@@ -8,26 +8,22 @@ import { AudioPlayerService } from './audio-player.service';
   styleUrls: ['./audio-player.component.css'],
 })
 export class AudioPlayerComponent implements OnInit, OnChanges {
-  private _files = new BehaviorSubject(this.files);
-
-  @Input()
-  set files(files: string) {
-    const filesArray = JSON.parse(files);
-    this._files.next(filesArray);
-  }
+  @Input() files: string[];
 
   isEnded = this.audioPlayerService.isEnded;
 
   constructor(private audioPlayerService: AudioPlayerService) {}
 
   ngOnInit() {
-    // this._files.subscribe(files => {
-    //   console.log(files);
-    //   this.audioPlayerService.audioFiles = files;
-    // });
+    //
   }
 
-  ngOnChanges() {}
+  ngOnChanges(changes: SimpleChanges) {
+    // まずは必ずJSONが来るものとして実装
+    const passedFiles: SimpleChange = changes.files;
+    const files: AudioFile[] = JSON.parse(passedFiles.currentValue);
+    this.audioPlayerService.audioFiles = files;
+  }
 
   handlePlayButton() {
     this.audioPlayerService.play();
